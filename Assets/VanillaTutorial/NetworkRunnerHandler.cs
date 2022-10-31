@@ -1,3 +1,4 @@
+using System;
 using Fusion;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -7,6 +8,12 @@ namespace VanillaTutorial
     public class NetworkRunnerHandler : MonoBehaviour
     {
         private NetworkRunner _runner;
+
+        private void Start()
+        {
+            StartGame(GameMode.AutoHostOrClient);
+            print(SceneManager.GetActiveScene().name);
+        }
 
         async void StartGame(GameMode mode)
         {
@@ -22,5 +29,6 @@ namespace VanillaTutorial
                 Scene = SceneManager.GetActiveScene().buildIndex,
                 SceneManager = gameObject.AddComponent<NetworkSceneManagerDefault>()
             });}
+        
     }
 }

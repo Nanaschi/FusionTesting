@@ -5,6 +5,6 @@ namespace Network
 {
     public class NetworkPlayer: NetworkObject
     {
-        
+         
     }
 }
