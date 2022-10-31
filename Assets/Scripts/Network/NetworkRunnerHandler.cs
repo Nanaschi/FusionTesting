@@ -1,6 +1,4 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Fusion;
@@ -17,8 +15,8 @@ public class NetworkRunnerHandler : MonoBehaviour
     {
         CreateNetworkRunner();
 
-        Intitialize(_networkRunnerInstance, GameMode.AutoHostOrClient, NetAddress.Any(),
-            SceneManager.GetActiveScene().buildIndex, "Test Scene", null);
+        var clientTask = Intitialize(_networkRunnerInstance, GameMode.AutoHostOrClient,
+            NetAddress.Any(), SceneManager.GetActiveScene().buildIndex, "Test Scene", null);
     }
 
     private void CreateNetworkRunner()
@@ -27,13 +25,10 @@ public class NetworkRunnerHandler : MonoBehaviour
         _networkRunnerInstance.name = nameof(NetworkRunner);
     }
 
-    public Task Intitialize(NetworkRunner networkRunner, GameMode gameMode, NetAddress? address,
-        SceneRef scene, string sessionName, Action<NetworkRunner> initialized)
+    protected virtual Task Intitialize(NetworkRunner networkRunner, GameMode gameMode,
+        NetAddress address, SceneRef scene, string sessionName, Action<NetworkRunner> initialized)
     {
-        var sceneManager = networkRunner.GetComponents(typeof(MonoBehaviour))
-            .OfType<INetworkSceneManager>().FirstOrDefault();
-
-        if (sceneManager == null)
+        var networkSceneManagerDefault =
             networkRunner.gameObject.AddComponent<NetworkSceneManagerDefault>();
 
 
@@ -46,7 +41,7 @@ public class NetworkRunnerHandler : MonoBehaviour
             Scene = scene,
             SessionName = sessionName,
             Initialized = initialized,
-            SceneManager = sceneManager
+            SceneManager = networkSceneManagerDefault
         });
     }
 }
