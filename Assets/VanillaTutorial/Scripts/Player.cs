@@ -44,7 +44,6 @@ public class Player : NetworkBehaviour
 
     public override void FixedUpdateNetwork()
     {
-        print(Runner.DeltaTime);
         if (GetInput(out NetworkInputData data))
         {
             data.direction.Normalize();

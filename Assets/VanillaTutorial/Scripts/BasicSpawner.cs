@@ -103,7 +103,6 @@ namespace VanillaTutorial
             if (_mouseButton1) data.buttons |= NetworkInputData.MOUSEBUTTON2;
             _mouseButton1 = false;
             
-            print(MethodBase.GetCurrentMethod());
             input.Set(data);
         }
 

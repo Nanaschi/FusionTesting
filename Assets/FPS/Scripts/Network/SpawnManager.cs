@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Reflection;
 using Fusion;
 using Fusion.Sockets;
+using Network;
 using UnityEngine;
 using Quaternion = UnityEngine.Quaternion;
 using Random = UnityEngine.Random;
@@ -40,7 +41,22 @@ public class SpawnManager : MonoBehaviour, INetworkRunnerCallbacks
 
     public void OnInput(NetworkRunner runner, NetworkInput input)
     {
-        print(runner.LocalPlayer);
+        
+        var data = new NetworkInputData();
+
+        if (Input.GetKey(KeyCode.W))
+            data.MovementInput += Vector3.forward;
+
+        if (Input.GetKey(KeyCode.S))
+            data.MovementInput += Vector3.back;
+
+        if (Input.GetKey(KeyCode.A))
+            data.MovementInput += Vector3.left;
+
+        if (Input.GetKey(KeyCode.D))
+            data.MovementInput += Vector3.right;
+        
+        input.Set(data);
         /*var networkInputData = new NetworkInputData();
 
         if (Input.GetKey(KeyCode.W))

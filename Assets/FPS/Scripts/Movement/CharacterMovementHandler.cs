@@ -15,11 +15,12 @@ public class CharacterMovementHandler : NetworkBehaviour
         print(MethodBase.GetCurrentMethod());
         if (GetInput(out NetworkInputData networkInputData))
         {
-            print(MethodBase.GetCurrentMethod());
-            Vector3 moveDirection = transform.forward * networkInputData.MovementInput.y +
+            networkInputData.MovementInput.Normalize();
+            _networkCharacterControllerCustom.Move(5 * networkInputData.MovementInput * Runner.DeltaTime);
+            /*Vector3 moveDirection = transform.forward * networkInputData.MovementInput.y +
                                     transform.right * networkInputData.MovementInput.x;
             moveDirection.Normalize();
-            _networkCharacterControllerCustom.Move(moveDirection);
+            _networkCharacterControllerCustom.Move(moveDirection);*/
         }
     }
     
