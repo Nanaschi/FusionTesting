@@ -12,34 +12,35 @@ using Vector3 = UnityEngine.Vector3;
 public class SpawnManager : MonoBehaviour, INetworkRunnerCallbacks
 {
     [SerializeField] private NetworkObject _networkPlayer;
-    private CharacterInputHandler _characterInputHandler;
-
-    private void Awake()
-    {
-    }
 
     [SerializeField] [Range(0, 100)] private int _rangeToSpawn;
-    private NetworkObject _newPlayer;
-
+    private Dictionary<PlayerRef, NetworkObject> _spawnedCharacters = new();
     public void OnPlayerJoined(NetworkRunner runner, PlayerRef player)
     {
         if (runner.IsServer)
         {
             print(MethodBase.GetCurrentMethod() + "and we are the server");
-            _newPlayer = runner.Spawn(_networkPlayer,
+            NetworkObject newNetworkObject = runner.Spawn(_networkPlayer,
                 new Vector3(Random.Range(-_rangeToSpawn, _rangeToSpawn), 1.1f, Random.Range(-_rangeToSpawn, _rangeToSpawn)),
                 Quaternion.identity, player);
+            
+            _spawnedCharacters.Add(player, newNetworkObject);
         }
-
-        _characterInputHandler = _newPlayer.GetComponent<CharacterInputHandler>();
+        
     }
 
     public void OnPlayerLeft(NetworkRunner runner, PlayerRef player)
     {
+        if (_spawnedCharacters.TryGetValue(player, out NetworkObject networkObject))
+        {
+            runner.Despawn(networkObject);
+            _spawnedCharacters.Remove(player);
+        }
     }
 
     public void OnInput(NetworkRunner runner, NetworkInput input)
     {
+        print(MethodBase.GetCurrentMethod());
         var data = new NetworkInputData();
 
         if (Input.GetKey(KeyCode.W))
