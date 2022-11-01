@@ -16,7 +16,6 @@ public class SpawnManager : MonoBehaviour, INetworkRunnerCallbacks
 
     private void Awake()
     {
-        
     }
 
     [SerializeField] [Range(0, 100)] private int _rangeToSpawn;
@@ -28,11 +27,11 @@ public class SpawnManager : MonoBehaviour, INetworkRunnerCallbacks
         {
             print(MethodBase.GetCurrentMethod() + "and we are the server");
             _newPlayer = runner.Spawn(_networkPlayer,
-                new Vector3(Random.Range(-_rangeToSpawn, _rangeToSpawn), 1, Random.Range(-_rangeToSpawn, _rangeToSpawn)),
+                new Vector3(Random.Range(-_rangeToSpawn, _rangeToSpawn), 1.1f, Random.Range(-_rangeToSpawn, _rangeToSpawn)),
                 Quaternion.identity, player);
         }
-        _characterInputHandler = _newPlayer.GetComponent<CharacterInputHandler>();
 
+        _characterInputHandler = _newPlayer.GetComponent<CharacterInputHandler>();
     }
 
     public void OnPlayerLeft(NetworkRunner runner, PlayerRef player)
@@ -41,7 +40,6 @@ public class SpawnManager : MonoBehaviour, INetworkRunnerCallbacks
 
     public void OnInput(NetworkRunner runner, NetworkInput input)
     {
-        
         var data = new NetworkInputData();
 
         if (Input.GetKey(KeyCode.W))
@@ -55,27 +53,8 @@ public class SpawnManager : MonoBehaviour, INetworkRunnerCallbacks
 
         if (Input.GetKey(KeyCode.D))
             data.MovementInput += Vector3.right;
-        
+
         input.Set(data);
-        /*var networkInputData = new NetworkInputData();
-
-        if (Input.GetKey(KeyCode.W))
-        {
-            print("WWWWWWWW");
-        }*/
-
-
-
-        /*if (_characterInputHandler == null && _newPlayer.HasStateAuthority)
-        {
-            
-            print(_newPlayer.gameObject.name);
-        }
-
-        if (_characterInputHandler != null)
-        {
-            input.Set(_characterInputHandler.GetNetworkInput());
-        }*/
     }
 
     public void OnInputMissing(NetworkRunner runner, PlayerRef player, NetworkInput input)

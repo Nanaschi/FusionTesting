@@ -12,12 +12,11 @@ public class CharacterMovementHandler : NetworkBehaviour
 
     public override void FixedUpdateNetwork()
     {
-        print(MethodBase.GetCurrentMethod());
         if (GetInput(out NetworkInputData networkInputData))
         {
             networkInputData.MovementInput.Normalize();
             _networkCharacterControllerCustom.Move(5 * networkInputData.MovementInput * Runner.DeltaTime);
-            /*Vector3 moveDirection = transform.forward * networkInputData.MovementInput.y +
+            /*Vector3 moveDirection = transform.forward * networkInputData.MovementInput.z +
                                     transform.right * networkInputData.MovementInput.x;
             moveDirection.Normalize();
             _networkCharacterControllerCustom.Move(moveDirection);*/
