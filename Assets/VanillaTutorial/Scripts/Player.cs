@@ -7,6 +7,8 @@ using VanillaTutorial;
 public class Player : NetworkBehaviour
 {
     [SerializeField] private Ball _prefabBall;
+    [SerializeField] private PhysxBall _physxBallPrefab;
+    [SerializeField] private float _timeBetweenBallShots;
 
     [Networked] private TickTimer delay { get; set; }
 
@@ -21,6 +23,7 @@ public class Player : NetworkBehaviour
 
     public override void FixedUpdateNetwork()
     {
+        print(Runner.DeltaTime);
         if (GetInput(out NetworkInputData data))
         {
             data.direction.Normalize();
@@ -33,12 +36,22 @@ public class Player : NetworkBehaviour
             {
                 if ((data.buttons & NetworkInputData.MOUSEBUTTON1) != 0)
                 {
-                    delay = TickTimer.CreateFromSeconds(Runner, 0.5f);
+                    delay = TickTimer.CreateFromSeconds(Runner, _timeBetweenBallShots);
                     Runner.Spawn(_prefabBall, transform.position + _forward, Quaternion.LookRotation(_forward),
                         Object.InputAuthority, (runner, o) =>
                         {
                             // Initialize the Ball before synchronizing it
                             o.GetComponent<Ball>().Init();
+                        });
+                }
+                else if ((data.buttons & NetworkInputData.MOUSEBUTTON2) != 0)
+                {
+                    delay = TickTimer.CreateFromSeconds(Runner, _timeBetweenBallShots);
+                    Runner.Spawn(_physxBallPrefab, transform.position + _forward, Quaternion.LookRotation(_forward),
+                        Object.InputAuthority, (runner, o) =>
+                        {
+                            // Initialize the Ball before synchronizing it
+                            o.GetComponent<PhysxBall>().Init(10 * _forward);
                         });
                 }
             }
