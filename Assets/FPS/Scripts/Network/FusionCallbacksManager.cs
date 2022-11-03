@@ -42,6 +42,7 @@ public class FusionCallbacksManager : MonoBehaviour, INetworkRunnerCallbacks
     {
         var data = new NetworkInputData();
 
+        data.RotationInput = new Vector2( Input.GetAxis("Mouse Y"),Input.GetAxis("Mouse X")); 
 
         if (Input.GetKey(KeyCode.W))
             data.MovementInput += Vector3.forward;

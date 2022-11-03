@@ -6,7 +6,7 @@ namespace Network
     public struct NetworkInputData : INetworkInput
     {
         private Vector3 _movementInput;
-        private float _rotationInput;
+        private Vector2 _rotationInput;
         private NetworkBool _isJumpPressed;
 
         public Vector3 MovementInput
@@ -15,7 +15,7 @@ namespace Network
             set => _movementInput = value;
         }
 
-        public float RotationInput
+        public Vector2 RotationInput
         {
             get => _rotationInput;
             set => _rotationInput = value;
