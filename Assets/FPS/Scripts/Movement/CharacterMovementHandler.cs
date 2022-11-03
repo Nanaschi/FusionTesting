@@ -1,3 +1,4 @@
+using FPS.Scripts.Extensions;
 using Fusion;
 using Movement;
 using Network;
@@ -7,6 +8,8 @@ public class CharacterMovementHandler : NetworkBehaviour
 {
     [SerializeField] private NetworkCharacterControllerCustom _networkCharacterControllerCustom;
     [SerializeField] private Camera _localCamera;
+    [SerializeField] private float _deathYZone;
+    [SerializeField] private float _rangeToSpawn;
     private float _rotY;
 
     private CharacterMovementHandler _localPlayer;
@@ -60,5 +63,8 @@ public class CharacterMovementHandler : NetworkBehaviour
 
             if (networkInputData.IsJumpPressed) _networkCharacterControllerCustom.Jump();
         }
+
+        if (transform.position.y <= _deathYZone) transform.position =
+            new Vector3().GetRandomSpawnPosition(_rangeToSpawn, 1.1f);
     }
 }

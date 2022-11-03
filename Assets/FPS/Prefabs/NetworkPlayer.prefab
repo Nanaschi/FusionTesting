@@ -110,7 +110,7 @@ MonoBehaviour:
   jumpImpulse: 8
   acceleration: 10
   braking: 10
-  maxSpeed: 2
+  maxSpeed: 8
   rotationSpeed: 15
   _veiwYClamp: 45
   _IsGrounded: 0
@@ -130,6 +130,8 @@ MonoBehaviour:
   _interpolationDataSource: 0
   _networkCharacterControllerCustom: {fileID: -8717181196700982802}
   _localCamera: {fileID: 2671333762960172642}
+  _deathYZone: -5
+  _rangeToSpawn: 0
 --- !u!1 &8291279555844599688
 GameObject:
   m_ObjectHideFlags: 0
@@ -632,7 +634,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8365791216494254087}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.71, z: -0.02}
+  m_LocalPosition: {x: 0, y: 0.75, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -662,7 +664,7 @@ Camera:
     y: 0
     width: 1
     height: 1
-  near clip plane: 0.3
+  near clip plane: 0.6
   far clip plane: 1000
   field of view: 60
   orthographic: 0

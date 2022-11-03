@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Reflection;
+using FPS.Scripts.Extensions;
 using Fusion;
 using Fusion.Sockets;
 using Network;
@@ -21,8 +22,7 @@ public class FusionCallbacksManager : MonoBehaviour, INetworkRunnerCallbacks
         if (runner.IsServer)
         {
             NetworkObject newNetworkObject = runner.Spawn(_networkPlayer,
-                new Vector3(Random.Range(-_rangeToSpawn, _rangeToSpawn), 1.1f, Random.Range(-_rangeToSpawn, _rangeToSpawn)),
-                Quaternion.identity, player);
+                new Vector3().GetRandomSpawnPosition(_rangeToSpawn, 1.1f), Quaternion.identity, player);
 
             _spawnedCharacters.Add(player, newNetworkObject);
         }
@@ -41,7 +41,7 @@ public class FusionCallbacksManager : MonoBehaviour, INetworkRunnerCallbacks
     {
         var data = new NetworkInputData();
 
-        data.RotationInput = new Vector2( Input.GetAxis("Mouse Y"),Input.GetAxis("Mouse X")); 
+        data.RotationInput = new Vector2(Input.GetAxis("Mouse Y"), Input.GetAxis("Mouse X"));
 
         if (Input.GetKey(KeyCode.W))
             data.MovementInput += Vector3.forward;
@@ -57,7 +57,7 @@ public class FusionCallbacksManager : MonoBehaviour, INetworkRunnerCallbacks
 
         if (Input.GetKeyDown(KeyCode.Space)) data.IsJumpPressed = true;
 
-            input.Set(data);
+        input.Set(data);
     }
 
     public void OnInputMissing(NetworkRunner runner, PlayerRef player, NetworkInput input)
