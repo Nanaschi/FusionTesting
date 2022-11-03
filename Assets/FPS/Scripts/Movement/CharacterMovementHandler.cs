@@ -1,7 +1,3 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Reflection;
 using Fusion;
 using Movement;
 using Network;
@@ -25,11 +21,9 @@ public class CharacterMovementHandler : NetworkBehaviour
         _rotY += Input.GetAxis("Mouse Y") * _networkCharacterControllerCustom.RotationSpeed * Time.deltaTime;
         _rotY = Mathf.Clamp(_rotY, -_networkCharacterControllerCustom.VeiwYClamp, _networkCharacterControllerCustom.VeiwYClamp);
         var localCameraRotation = _localCamera.transform.localRotation;
-        localCameraRotation = Quaternion.Euler(-_rotY,   
-            localCameraRotation.y,   localCameraRotation.z);
+        localCameraRotation = Quaternion.Euler(-_rotY, localCameraRotation.y, localCameraRotation.z);
         _localCamera.transform.localRotation = localCameraRotation;
     }
-
 
 
     public override void FixedUpdateNetwork()
@@ -38,12 +32,16 @@ public class CharacterMovementHandler : NetworkBehaviour
         {
             //View
             _networkCharacterControllerCustom.Rotate(networkInputData.RotationInput, _localCamera);
-            
+
 
             //Move
 
-            networkInputData.MovementInput.Normalize();
-            _networkCharacterControllerCustom.Move(5 * networkInputData.MovementInput * Runner.DeltaTime);
+            Vector3 moveDirection = transform.forward * networkInputData.MovementInput.z +
+                                    transform.right * networkInputData.MovementInput.x;
+
+            var old = 5 * networkInputData.MovementInput * Runner.DeltaTime;
+            moveDirection.Normalize();
+            _networkCharacterControllerCustom.Move(moveDirection);
 
             if (networkInputData.IsJumpPressed) _networkCharacterControllerCustom.Jump();
         }
