@@ -128,6 +128,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _interpolationDataSource: 0
   _networkCharacterControllerCustom: {fileID: -8717181196700982802}
+  _localCamera: {fileID: 2671333762960172642}
 --- !u!1 &8291279555844599688
 GameObject:
   m_ObjectHideFlags: 0

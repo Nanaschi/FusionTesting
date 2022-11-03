@@ -15,8 +15,16 @@ namespace Network
             set => _movementInput = value;
         }
 
-        public float RotationInput => _rotationInput;
+        public float RotationInput
+        {
+            get => _rotationInput;
+            set => _rotationInput = value;
+        }
 
-        public NetworkBool IsJumpPressed => _isJumpPressed;
+        public NetworkBool IsJumpPressed
+        {
+            get => _isJumpPressed;
+            set => _isJumpPressed = value;
+        }
     }
 }

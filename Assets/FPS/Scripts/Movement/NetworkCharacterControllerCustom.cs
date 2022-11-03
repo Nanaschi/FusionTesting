@@ -115,5 +115,10 @@ namespace Movement
       Velocity   = (transform.position - previousPos) * Runner.Simulation.Config.TickRate;
       IsGrounded = Controller.isGrounded;
     }
-  }
+
+    public void Rotate(float inputRotationInput)
+    {
+      transform.Rotate(0, inputRotationInput*Runner.DeltaTime * rotationSpeed,0);
+    }
+}
 }

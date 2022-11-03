@@ -9,12 +9,13 @@ using Quaternion = UnityEngine.Quaternion;
 using Random = UnityEngine.Random;
 using Vector3 = UnityEngine.Vector3;
 
-public class SpawnManager : MonoBehaviour, INetworkRunnerCallbacks
+public class FusionCallbacksManager : MonoBehaviour, INetworkRunnerCallbacks
 {
     [SerializeField] private NetworkObject _networkPlayer;
 
     [SerializeField] [Range(0, 100)] private int _rangeToSpawn;
     private Dictionary<PlayerRef, NetworkObject> _spawnedCharacters = new();
+
     public void OnPlayerJoined(NetworkRunner runner, PlayerRef player)
     {
         if (runner.IsServer)
@@ -23,10 +24,9 @@ public class SpawnManager : MonoBehaviour, INetworkRunnerCallbacks
             NetworkObject newNetworkObject = runner.Spawn(_networkPlayer,
                 new Vector3(Random.Range(-_rangeToSpawn, _rangeToSpawn), 1.1f, Random.Range(-_rangeToSpawn, _rangeToSpawn)),
                 Quaternion.identity, player);
-            
+
             _spawnedCharacters.Add(player, newNetworkObject);
         }
-        
     }
 
     public void OnPlayerLeft(NetworkRunner runner, PlayerRef player)
@@ -40,8 +40,8 @@ public class SpawnManager : MonoBehaviour, INetworkRunnerCallbacks
 
     public void OnInput(NetworkRunner runner, NetworkInput input)
     {
-        print(MethodBase.GetCurrentMethod());
         var data = new NetworkInputData();
+
 
         if (Input.GetKey(KeyCode.W))
             data.MovementInput += Vector3.forward;
@@ -55,7 +55,9 @@ public class SpawnManager : MonoBehaviour, INetworkRunnerCallbacks
         if (Input.GetKey(KeyCode.D))
             data.MovementInput += Vector3.right;
 
-        input.Set(data);
+        if (Input.GetKeyDown(KeyCode.Space)) data.IsJumpPressed = true;
+
+            input.Set(data);
     }
 
     public void OnInputMissing(NetworkRunner runner, PlayerRef player, NetworkInput input)
