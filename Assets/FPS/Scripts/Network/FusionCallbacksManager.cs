@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 using FPS.Scripts.Extensions;
 using Fusion;
@@ -15,6 +16,9 @@ public class FusionCallbacksManager : MonoBehaviour, INetworkRunnerCallbacks
     [SerializeField] private NetworkObject _networkPlayer;
 
     [SerializeField] [Range(0, 100)] private int _rangeToSpawn;
+
+    public int RangeToSpawn => _rangeToSpawn;
+
     private Dictionary<PlayerRef, NetworkObject> _spawnedCharacters = new();
 
     public void OnPlayerJoined(NetworkRunner runner, PlayerRef player)
@@ -23,6 +27,11 @@ public class FusionCallbacksManager : MonoBehaviour, INetworkRunnerCallbacks
         {
             NetworkObject newNetworkObject = runner.Spawn(_networkPlayer,
                 new Vector3().GetRandomSpawnPosition(_rangeToSpawn, 1.1f), Quaternion.identity, player);
+
+            CharacterMovementHandler firstOrDefault = newNetworkObject.NetworkedBehaviours.FirstOrDefault
+                (behavior => behavior is CharacterMovementHandler) as CharacterMovementHandler;
+
+            if (firstOrDefault != null) firstOrDefault.RangeToSpawn = _rangeToSpawn;
 
             _spawnedCharacters.Add(player, newNetworkObject);
         }

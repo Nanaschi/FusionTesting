@@ -57,6 +57,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aaa558a805ed9664ab478b84eb9878f8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _networkPlayer: {fileID: 6577053069693638310, guid: 17052c5a58a42d94c8467d39f95ec104,
+  _networkPlayer: {fileID: 5091862144039343741, guid: 17052c5a58a42d94c8467d39f95ec104,
     type: 3}
-  _rangeToSpawn: 20
+  _rangeToSpawn: 30

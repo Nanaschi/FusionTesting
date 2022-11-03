@@ -9,7 +9,14 @@ public class CharacterMovementHandler : NetworkBehaviour
     [SerializeField] private NetworkCharacterControllerCustom _networkCharacterControllerCustom;
     [SerializeField] private Camera _localCamera;
     [SerializeField] private float _deathYZone;
-    [SerializeField] private float _rangeToSpawn;
+    private float _rangeToSpawn;
+
+    public float RangeToSpawn
+    {
+        get => _rangeToSpawn;
+        set => _rangeToSpawn = value;
+    }
+
     private float _rotY;
 
     private CharacterMovementHandler _localPlayer;
