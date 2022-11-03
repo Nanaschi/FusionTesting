@@ -20,7 +20,6 @@ public class FusionCallbacksManager : MonoBehaviour, INetworkRunnerCallbacks
     {
         if (runner.IsServer)
         {
-            print(MethodBase.GetCurrentMethod() + "and we are the server");
             NetworkObject newNetworkObject = runner.Spawn(_networkPlayer,
                 new Vector3(Random.Range(-_rangeToSpawn, _rangeToSpawn), 1.1f, Random.Range(-_rangeToSpawn, _rangeToSpawn)),
                 Quaternion.identity, player);

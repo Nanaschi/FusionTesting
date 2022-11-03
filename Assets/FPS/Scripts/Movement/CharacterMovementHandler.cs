@@ -9,6 +9,21 @@ public class CharacterMovementHandler : NetworkBehaviour
     [SerializeField] private Camera _localCamera;
     private float _rotY;
 
+    private CharacterMovementHandler _localPlayer;
+
+    public override void Spawned()
+    {
+        if (Object.HasInputAuthority)
+        {
+            print("spawned local");
+            _localPlayer = this;
+        }
+        else
+        {
+            print("spawned remote");
+            _localCamera.gameObject.SetActive(false);
+        }
+    }
 
     private void Start()
     {
