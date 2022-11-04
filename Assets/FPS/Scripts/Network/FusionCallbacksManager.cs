@@ -69,6 +69,7 @@ public class FusionCallbacksManager : MonoBehaviour, INetworkRunnerCallbacks
             data.MovementInput += Vector3.right;
 
         if (Input.GetKeyDown(KeyCode.Space)) data.IsJumpPressed = true;
+        if (Input.GetButtonDown("Fire1")) data.IsFirePressed = true;
 
         input.Set(data);
     }

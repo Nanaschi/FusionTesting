@@ -6110,6 +6110,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5197669589230910660}
+  - component: {fileID: 4472165210401410233}
+  - component: {fileID: 5928674068203400644}
   m_Layer: 0
   m_Name: Gun
   m_TagString: Untagged
@@ -6133,6 +6135,44 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
+--- !u!114 &4472165210401410233
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7309791589288696452}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 740171f6091d4be98b4a65b7054ac333, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _interpolationDataSource: 0
+  _IsFiring: 0
+--- !u!114 &5928674068203400644
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7309791589288696452}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1552182283, guid: e725a070cec140c4caffb81624c8c787, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObjectInterest: 1
+  DefaultInterestGroups: []
+  DestroyWhenStateAuthorityLeaves: 0
+  AllowStateAuthorityOverride: 1
+  AoiPositionSource: {fileID: 0}
+  Flags: 2305
+  NetworkGuid:
+    RawGuidValue: d03f9f6bf218c444b883d18965c07267
+  NestedObjects: []
+  NetworkedBehaviours:
+  - {fileID: 4472165210401410233}
+  SimulationBehaviours: []
 --- !u!1 &8087658999425697207
 GameObject:
   m_ObjectHideFlags: 0

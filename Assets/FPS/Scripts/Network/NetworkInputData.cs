@@ -8,6 +8,13 @@ namespace Network
         private Vector3 _movementInput;
         private Vector2 _rotationInput;
         private NetworkBool _isJumpPressed;
+        private NetworkBool _isFirePressed;
+
+        public NetworkBool IsFirePressed
+        {
+            get => _isFirePressed;
+            set => _isFirePressed = value;
+        }
 
         public Vector3 MovementInput
         {

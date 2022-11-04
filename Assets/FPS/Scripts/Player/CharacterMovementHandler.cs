@@ -50,7 +50,8 @@ public class CharacterMovementHandler : NetworkBehaviour
 
     private void Update()
     {
-        if (Object.HasInputAuthority) CameraControl();
+        if (!Object.HasInputAuthority) return;
+        CameraControl();
     }
 
     private void CameraControl()

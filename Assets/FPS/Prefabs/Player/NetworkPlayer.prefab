@@ -234,7 +234,8 @@ MonoBehaviour:
   Flags: 2305
   NetworkGuid:
     RawGuidValue: 17052c5a58a42d94c8467d39f95ec104
-  NestedObjects: []
+  NestedObjects:
+  - {fileID: 4337851498931566059}
   NetworkedBehaviours:
   - {fileID: -8717181196700982802}
   - {fileID: -8794064855198102462}
@@ -965,6 +966,21 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5928674068203400644, guid: d03f9f6bf218c444b883d18965c07267,
+        type: 3}
+      propertyPath: Flags
+      value: 3073
+      objectReference: {fileID: 0}
+    - target: {fileID: 5928674068203400644, guid: d03f9f6bf218c444b883d18965c07267,
+        type: 3}
+      propertyPath: NetworkGuid.RawGuidValue.Array.data[0]
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5928674068203400644, guid: d03f9f6bf218c444b883d18965c07267,
+        type: 3}
+      propertyPath: NetworkGuid.RawGuidValue.Array.data[1]
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7309791589288696452, guid: d03f9f6bf218c444b883d18965c07267,
         type: 3}
       propertyPath: m_Name
@@ -978,3 +994,15 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 7959484879981467695}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &4337851498931566059 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5928674068203400644, guid: d03f9f6bf218c444b883d18965c07267,
+    type: 3}
+  m_PrefabInstance: {fileID: 7959484879981467695}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1552182283, guid: e725a070cec140c4caffb81624c8c787, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
