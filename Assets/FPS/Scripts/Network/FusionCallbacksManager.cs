@@ -26,15 +26,21 @@ public class FusionCallbacksManager : MonoBehaviour, INetworkRunnerCallbacks
         if (runner.IsServer)
         {
             NetworkObject newNetworkObject = runner.Spawn(_networkPlayer,
-                new Vector3().GetRandomSpawnPosition(_rangeToSpawn, 1.1f), Quaternion.identity, player);
+                new Vector3().GetRandomSpawnPosition(_rangeToSpawn, 1.1f), Quaternion.identity, player, 
+                (networkRunner, networkObject) => InitPlayer(networkRunner, networkObject));
 
-            CharacterMovementHandler firstOrDefault = newNetworkObject.NetworkedBehaviours.FirstOrDefault
-                (behavior => behavior is CharacterMovementHandler) as CharacterMovementHandler;
-
-            if (firstOrDefault != null) firstOrDefault.RangeToSpawn = _rangeToSpawn;
+     
 
             _spawnedCharacters.Add(player, newNetworkObject);
         }
+    }
+
+    private void InitPlayer(NetworkRunner networkRunner, NetworkObject networkObject)
+    {
+        CharacterMovementHandler firstOrDefault = networkObject.NetworkedBehaviours.FirstOrDefault
+            (behavior => behavior is CharacterMovementHandler) as CharacterMovementHandler;
+
+        if (firstOrDefault != null) firstOrDefault.RangeToSpawn = _rangeToSpawn;
     }
 
     public void OnPlayerLeft(NetworkRunner runner, PlayerRef player)

@@ -59,4 +59,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _networkPlayer: {fileID: 5091862144039343741, guid: 17052c5a58a42d94c8467d39f95ec104,
     type: 3}
-  _rangeToSpawn: 30
+  _rangeToSpawn: 14
