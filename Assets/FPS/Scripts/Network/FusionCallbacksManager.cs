@@ -17,8 +17,6 @@ public class FusionCallbacksManager : MonoBehaviour, INetworkRunnerCallbacks
 
     [SerializeField] [Range(0, 100)] private int _rangeToSpawn;
 
-    public int RangeToSpawn => _rangeToSpawn;
-
     private Dictionary<PlayerRef, NetworkObject> _spawnedCharacters = new();
 
     public void OnPlayerJoined(NetworkRunner runner, PlayerRef player)

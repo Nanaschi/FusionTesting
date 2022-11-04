@@ -33,15 +33,27 @@ public class CharacterMovementHandler : NetworkBehaviour
             print("spawned remote");
             _localCamera.gameObject.SetActive(false);
         }
+
+        gameObject.name = $"Player {Object.Id}";
     }
 
     private void Start()
+    {
+        LockMouse();
+    }
+
+    private static void LockMouse()
     {
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
     }
 
     private void Update()
+    {
+        if (Object.HasInputAuthority) CameraControl();
+    }
+
+    private void CameraControl()
     {
         _rotY += Input.GetAxis("Mouse Y") * _networkCharacterControllerCustom.RotationSpeed * Time.deltaTime;
         _rotY = Mathf.Clamp(_rotY, -_networkCharacterControllerCustom.VeiwYClamp, _networkCharacterControllerCustom.VeiwYClamp);
