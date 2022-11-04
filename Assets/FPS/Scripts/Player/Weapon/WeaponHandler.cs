@@ -20,7 +20,7 @@ namespace Movement.Weapon
         {
             if (GetInput(out NetworkInputData networkInputData))
             {
-                if (networkInputData.IsFirePressed) Fire();
+                 IsFiring = networkInputData.IsFirePressed;
             }
         }
 
@@ -28,12 +28,7 @@ namespace Movement.Weapon
         static void OnFireChanged(Changed<WeaponHandler> changed)
         {
             
-            Debug.Log(MethodBase.GetCurrentMethod());
-        }
-
-        void Fire()
-        {
-            IsFiring = true;
+            Debug.Log(changed.Behaviour.IsFiring);
         }
     }
 }
