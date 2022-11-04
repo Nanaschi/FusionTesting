@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace FPS.Scripts.Extensions
 {
-    public static class Helper
+    public static class Extensions
     {
         public static Vector3 GetRandomSpawnPosition(this Vector3 vector3, float _rangeToSpawnXZ,float _yHeight = 0)
         {
