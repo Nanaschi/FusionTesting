@@ -7,17 +7,12 @@ namespace Movement.Weapon
 {
     public class WeaponHandler : NetworkBehaviour
     {
-        private bool _isFiring;
         [SerializeField] private ParticleSystem _fireParticleSystem;
 
         private ParticleSystem FireParticleSystem => _fireParticleSystem;
 
-        [Networked(OnChanged = nameof(OnFireChanged))]
-        private bool IsFiring
-        {
-            get => _isFiring;
-            set => _isFiring = value;
-        }
+        [Networked(OnChanged = nameof(PerformFire))]
+        private bool IsFiring { get; set; }
 
         public override void FixedUpdateNetwork()
         {
@@ -28,7 +23,7 @@ namespace Movement.Weapon
         }
 
 
-        static void OnFireChanged(Changed<WeaponHandler> changed)
+        static void PerformFire(Changed<WeaponHandler> changed)
         {
             if (changed.Behaviour.IsFiring)
             {
