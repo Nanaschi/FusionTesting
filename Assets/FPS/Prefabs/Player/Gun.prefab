@@ -6148,6 +6148,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _interpolationDataSource: 0
+  _fireParticleSystem: {fileID: 6157703651695438338}
   _IsFiring: 0
 --- !u!114 &5928674068203400644
 MonoBehaviour:

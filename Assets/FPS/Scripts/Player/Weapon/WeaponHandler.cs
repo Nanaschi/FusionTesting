@@ -8,9 +8,12 @@ namespace Movement.Weapon
     public class WeaponHandler : NetworkBehaviour
     {
         private bool _isFiring;
+        [SerializeField] private ParticleSystem _fireParticleSystem;
+
+        private ParticleSystem FireParticleSystem => _fireParticleSystem;
 
         [Networked(OnChanged = nameof(OnFireChanged))]
-        public bool IsFiring
+        private bool IsFiring
         {
             get => _isFiring;
             set => _isFiring = value;
@@ -27,8 +30,12 @@ namespace Movement.Weapon
 
         static void OnFireChanged(Changed<WeaponHandler> changed)
         {
+            if (changed.Behaviour.IsFiring)
+            {
+                changed.Behaviour.FireParticleSystem.Play();
+                Debug.Log(changed.Behaviour.IsFiring);
+            }
             
-            Debug.Log(changed.Behaviour.IsFiring);
         }
     }
 }

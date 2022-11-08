@@ -8,6 +8,7 @@ public class CharacterMovementHandler : NetworkBehaviour
 {
     [SerializeField] private NetworkCharacterControllerCustom _networkCharacterControllerCustom;
     [SerializeField] private Camera _localCamera;
+    [SerializeField] private Transform _headReplacement;
     [SerializeField] private float _deathYZone;
     private float _rangeToSpawn;
 
@@ -25,12 +26,12 @@ public class CharacterMovementHandler : NetworkBehaviour
     {
         if (Object.HasInputAuthority)
         {
-            print("spawned local");
+            //spawned local
             _localPlayer = this;
         }
         else
         {
-            print("spawned remote");
+            //spawned remote
             _localCamera.gameObject.SetActive(false);
         }
 
@@ -58,9 +59,9 @@ public class CharacterMovementHandler : NetworkBehaviour
     {
         _rotY += Input.GetAxis("Mouse Y") * _networkCharacterControllerCustom.RotationSpeed * Time.deltaTime;
         _rotY = Mathf.Clamp(_rotY, -_networkCharacterControllerCustom.VeiwYClamp, _networkCharacterControllerCustom.VeiwYClamp);
-        var localCameraRotation = _localCamera.transform.localRotation;
+        var localCameraRotation = _headReplacement.transform.localRotation;
         localCameraRotation = Quaternion.Euler(-_rotY, localCameraRotation.y, localCameraRotation.z);
-        _localCamera.transform.localRotation = localCameraRotation;
+        _headReplacement.transform.localRotation = localCameraRotation;
     }
 
 
@@ -69,7 +70,7 @@ public class CharacterMovementHandler : NetworkBehaviour
         if (GetInput(out NetworkInputData networkInputData))
         {
             //View
-            _networkCharacterControllerCustom.Rotate(networkInputData.RotationInput, _localCamera);
+            _networkCharacterControllerCustom.Rotate(networkInputData.RotationInput, _headReplacement);
 
 
             //Move

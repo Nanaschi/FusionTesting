@@ -1,14 +1,12 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reflection;
 using FPS.Scripts.Extensions;
 using Fusion;
 using Fusion.Sockets;
 using Network;
 using UnityEngine;
 using Quaternion = UnityEngine.Quaternion;
-using Random = UnityEngine.Random;
 using Vector3 = UnityEngine.Vector3;
 
 public class FusionCallbacksManager : MonoBehaviour, INetworkRunnerCallbacks

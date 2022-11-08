@@ -137,7 +137,7 @@ namespace Movement
             IsGrounded = Controller.isGrounded;
         }
 
-        public void Rotate(Vector2 inputRotationInput, Camera localCamera)
+        public void Rotate(Vector2 inputRotationInput, Transform localCamera)
         {
             /*var test= Mathf.Clamp(localCamera.transform.r, -90f, 90f);
 
