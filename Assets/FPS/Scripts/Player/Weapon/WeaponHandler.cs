@@ -1,3 +1,4 @@
+using System;
 using System.Reflection;
 using Fusion;
 using Network;
@@ -10,6 +11,24 @@ namespace Movement.Weapon
         [SerializeField] private ParticleSystem _fireParticleSystem;
 
         private ParticleSystem FireParticleSystem => _fireParticleSystem;
+
+
+
+        [SerializeField] private float _rayLength;
+
+        public float RayLength
+        {
+            get => _rayLength;
+            set => _rayLength = value;
+        }
+
+        [SerializeField] private LayerMask _layerMask;
+
+        public LayerMask LayerMask
+        {
+            get => _layerMask;
+            set => _layerMask = value;
+        }
 
         [Networked(OnChanged = nameof(PerformFire))]
         private bool IsFiring { get; set; }
@@ -28,7 +47,18 @@ namespace Movement.Weapon
             if (changed.Behaviour.IsFiring)
             {
                 changed.Behaviour.FireParticleSystem.Play();
+                changed.Behaviour.Runner.LagCompensation.Raycast
+                    (changed.Behaviour.transform.position,
+                        Vector3.forward,
+                        changed.Behaviour.RayLength,
+                        changed.Behaviour.Object.InputAuthority, 
+                        out var hitInfo, 
+                        changed.Behaviour.LayerMask, HitOptions.IncludePhysX);
                 Debug.Log(changed.Behaviour.IsFiring);
+                if (hitInfo.Collider != null) print(hitInfo.GameObject.name);
+                Debug.DrawRay(changed.Behaviour.transform.position,
+                    changed.Behaviour.transform.TransformDirection(Vector3.forward) 
+                    * changed.Behaviour.RayLength, Color.red, 6);
             }
             
         }
