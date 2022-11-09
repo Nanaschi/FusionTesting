@@ -82,6 +82,7 @@ MonoBehaviour:
   _fireParticleSystem: {fileID: 3747923673075009349}
   _shootFrequency: 0.5
   _rayLength: 100
+  _amountOfDamage: 3
   _layerMask:
     serializedVersion: 2
     m_Bits: 1

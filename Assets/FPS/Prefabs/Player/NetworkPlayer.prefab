@@ -112,7 +112,7 @@ GameObject:
   - component: {fileID: 3271861038227211650}
   - component: {fileID: 175433680605551933}
   m_Layer: 0
-  m_Name: GameObject
+  m_Name: Hitbox
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -241,6 +241,7 @@ GameObject:
   - component: {fileID: -8717181196700982802}
   - component: {fileID: -8794064855198102462}
   - component: {fileID: 2026463365215835312}
+  - component: {fileID: 6660720469451176160}
   m_Layer: 0
   m_Name: NetworkPlayer
   m_TagString: Untagged
@@ -293,6 +294,7 @@ MonoBehaviour:
   - {fileID: -8717181196700982802}
   - {fileID: -8794064855198102462}
   - {fileID: 2026463365215835312}
+  - {fileID: 6660720469451176160}
   SimulationBehaviours: []
 --- !u!143 &8291279555045719850
 CharacterController:
@@ -384,6 +386,20 @@ MonoBehaviour:
   GizmosColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
   Hitboxes:
   - {fileID: 175433680605551933}
+--- !u!114 &6660720469451176160
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8291279555045719851}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 36563428675ec974da4b12ca1f2d801d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _interpolationDataSource: 0
+  _maxHP: 10
 --- !u!1 &8291279555844599688
 GameObject:
   m_ObjectHideFlags: 0

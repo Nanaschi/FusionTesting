@@ -15,6 +15,7 @@ namespace Movement.Weapon
         [SerializeField] private float _shootFrequency;
 
         [SerializeField] private float _rayLength;
+        [SerializeField] private byte _amountOfDamage;
 
         private Camera _playerCamera;
 
@@ -72,8 +73,9 @@ namespace Movement.Weapon
                 }
 
                 //Fusion component for raycast detection 
-                if (hitInfo.Hitbox)
+                if (hitInfo.Hitbox && changed.Behaviour.HasInputAuthority)
                 {
+                    hitInfo.Hitbox.Root.GetComponent<HPHandler>().TakeDamage(changed.Behaviour._amountOfDamage);
                     Debug.DrawRay(changed.Behaviour._playerCamera.transform.position,
                         changed.Behaviour._playerCamera.transform.TransformDirection(Vector3.forward) *
                         changed.Behaviour._rayLength, Color.red, .5f);
