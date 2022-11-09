@@ -59,12 +59,22 @@ namespace Movement.Weapon
                         changed.Behaviour.LayerMask, HitOptions.IncludePhysX);
                 Debug.Log(changed.Behaviour.IsFiring);
                 //Unity built in colliders
-                if (hitInfo.Collider) print(hitInfo.GameObject.name);
+                if (hitInfo.Collider)
+                {
+                    Debug.DrawRay(changed.Behaviour.PlayerCamera.transform.position,
+                        changed.Behaviour.PlayerCamera.transform.TransformDirection(Vector3.forward) 
+                        * changed.Behaviour.RayLength, Color.green, .5f);
+                    print(hitInfo.GameObject.name);
+                }
                 //Fusion component for raycast detection 
-                if (hitInfo.Hitbox) print(hitInfo.GameObject.name);
-                Debug.DrawRay(changed.Behaviour.PlayerCamera.transform.position,
-                    changed.Behaviour.PlayerCamera.transform.TransformDirection(Vector3.forward) 
-                    * changed.Behaviour.RayLength, Color.red, .5f);
+                if (hitInfo.Hitbox)
+                {
+                    Debug.DrawRay(changed.Behaviour.PlayerCamera.transform.position,
+                        changed.Behaviour.PlayerCamera.transform.TransformDirection(Vector3.forward) 
+                        * changed.Behaviour.RayLength, Color.red, .5f);
+                    print(hitInfo.GameObject.name);
+                }
+
             }
             
         }
