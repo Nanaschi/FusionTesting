@@ -15,26 +15,31 @@ namespace Movement.Weapon
         [SerializeField] private float _shootFrequency;
 
         [SerializeField] private float _rayLength;
-        private float RayLength
+
+        private Camera _playerCamera;
+
+        public Camera PlayerCamera
         {
-            get => _rayLength;
-            set => _rayLength = value;
+            set => _playerCamera = value;
         }
-
-        public Camera PlayerCamera { get; set; }
-
 
 
         [SerializeField] private LayerMask _layerMask;
+        private bool _isFiring;
 
-        public LayerMask LayerMask
+        private LayerMask LayerMask
         {
             get => _layerMask;
             set => _layerMask = value;
         }
 
         [Networked(OnChanged = nameof(PerformFire))]
-        private bool IsFiring { get; set; }
+        private bool IsFiring
+        {
+            get => _isFiring;
+            set => _isFiring = value;
+        }
+
         [Networked] private TickTimer _shootFrequencyTick { get; set; }
 
         private void InitTickTimer()
@@ -46,46 +51,40 @@ namespace Movement.Weapon
         {
             if (GetInput(out NetworkInputData networkInputData))
             {
-                
-                 IsFiring = networkInputData.IsFirePressed;
+                IsFiring = networkInputData.IsFirePressed;
             }
         }
 
 
         static void PerformFire(Changed<WeaponHandler> changed)
         {
-            if (changed.Behaviour.IsFiring && 
-                changed.Behaviour._shootFrequencyTick.ExpiredOrNotRunning(changed.Behaviour.Runner))
+            if (changed.Behaviour.IsFiring && changed.Behaviour._shootFrequencyTick.ExpiredOrNotRunning(changed.Behaviour.Runner))
             {
                 changed.Behaviour.InitTickTimer();
                 changed.Behaviour.FireParticleSystem.Play();
-                changed.Behaviour.Runner.LagCompensation.Raycast
-                    (changed.Behaviour.PlayerCamera.transform.position,
-                        changed.Behaviour.PlayerCamera.transform.TransformDirection(Vector3.forward) ,
-                        changed.Behaviour.RayLength,
-                        changed.Behaviour.Object.InputAuthority, 
-                        out var hitInfo, 
-                        changed.Behaviour.LayerMask, HitOptions.IncludePhysX);
+                changed.Behaviour.Runner.LagCompensation.Raycast(changed.Behaviour._playerCamera.transform.position,
+                    changed.Behaviour._playerCamera.transform.TransformDirection(Vector3.forward), changed.Behaviour._rayLength,
+                    changed.Behaviour.Object.InputAuthority, out var hitInfo, changed.Behaviour.LayerMask,
+                    HitOptions.IncludePhysX);
                 Debug.Log(changed.Behaviour.IsFiring);
                 //Unity built in colliders
                 if (hitInfo.Collider)
                 {
-                    Debug.DrawRay(changed.Behaviour.PlayerCamera.transform.position,
-                        changed.Behaviour.PlayerCamera.transform.TransformDirection(Vector3.forward) 
-                        * changed.Behaviour.RayLength, Color.green, .5f);
-                    print(hitInfo.GameObject.name);
-                }
-                //Fusion component for raycast detection 
-                if (hitInfo.Hitbox)
-                {
-                    Debug.DrawRay(changed.Behaviour.PlayerCamera.transform.position,
-                        changed.Behaviour.PlayerCamera.transform.TransformDirection(Vector3.forward) 
-                        * changed.Behaviour.RayLength, Color.red, .5f);
+                    Debug.DrawRay(changed.Behaviour._playerCamera.transform.position,
+                        changed.Behaviour._playerCamera.transform.TransformDirection(Vector3.forward) *
+                        changed.Behaviour._rayLength, Color.green, .5f);
                     print(hitInfo.GameObject.name);
                 }
 
+                //Fusion component for raycast detection 
+                if (hitInfo.Hitbox)
+                {
+                    Debug.DrawRay(changed.Behaviour._playerCamera.transform.position,
+                        changed.Behaviour._playerCamera.transform.TransformDirection(Vector3.forward) *
+                        changed.Behaviour._rayLength, Color.red, .5f);
+                    print(hitInfo.GameObject.name);
+                }
             }
-            
         }
     }
 }
