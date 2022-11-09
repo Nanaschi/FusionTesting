@@ -25,7 +25,6 @@ namespace Movement.Weapon
 
 
         [SerializeField] private LayerMask _layerMask;
-        private bool _isFiring;
 
         private LayerMask LayerMask
         {
@@ -34,11 +33,7 @@ namespace Movement.Weapon
         }
 
         [Networked(OnChanged = nameof(PerformFire))]
-        private bool IsFiring
-        {
-            get => _isFiring;
-            set => _isFiring = value;
-        }
+        private bool IsFiring { get; set; }
 
         [Networked] private TickTimer _shootFrequencyTick { get; set; }
 
