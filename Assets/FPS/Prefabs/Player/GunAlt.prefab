@@ -80,6 +80,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _interpolationDataSource: 0
   _fireParticleSystem: {fileID: 3747923673075009349}
+  _shootFrequency: 3
   _rayLength: 100
   _layerMask:
     serializedVersion: 2

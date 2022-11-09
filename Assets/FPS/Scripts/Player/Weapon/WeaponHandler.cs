@@ -12,7 +12,7 @@ namespace Movement.Weapon
 
         private ParticleSystem FireParticleSystem => _fireParticleSystem;
 
-
+        [SerializeField] private float _shootFrequency;
 
         [SerializeField] private float _rayLength;
         private float RayLength
@@ -35,11 +35,18 @@ namespace Movement.Weapon
 
         [Networked(OnChanged = nameof(PerformFire))]
         private bool IsFiring { get; set; }
+        [Networked] private TickTimer _shootFrequencyTick { get; set; }
+
+        private void InitTickTimer()
+        {
+            _shootFrequencyTick = TickTimer.CreateFromSeconds(Runner, _shootFrequency);
+        }
 
         public override void FixedUpdateNetwork()
         {
             if (GetInput(out NetworkInputData networkInputData))
             {
+                
                  IsFiring = networkInputData.IsFirePressed;
             }
         }
@@ -47,8 +54,10 @@ namespace Movement.Weapon
 
         static void PerformFire(Changed<WeaponHandler> changed)
         {
-            if (changed.Behaviour.IsFiring)
+            if (changed.Behaviour.IsFiring && 
+                changed.Behaviour._shootFrequencyTick.ExpiredOrNotRunning(changed.Behaviour.Runner))
             {
+                changed.Behaviour.InitTickTimer();
                 changed.Behaviour.FireParticleSystem.Play();
                 changed.Behaviour.Runner.LagCompensation.Raycast
                     (changed.Behaviour.PlayerCamera.transform.position,
