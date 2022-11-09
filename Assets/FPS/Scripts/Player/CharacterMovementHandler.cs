@@ -1,6 +1,8 @@
+using System;
 using FPS.Scripts.Extensions;
 using Fusion;
 using Movement;
+using Movement.Weapon;
 using Network;
 using UnityEngine;
 
@@ -10,7 +12,19 @@ public class CharacterMovementHandler : NetworkBehaviour
     [SerializeField] private Camera _localCamera;
     [SerializeField] private Transform _headReplacement;
     [SerializeField] private float _deathYZone;
+    [SerializeField] private WeaponHandler _weaponHandler;
     private float _rangeToSpawn;
+
+
+    private void Awake()
+    {
+        Initialize();
+    }
+
+    private void Initialize()
+    {
+        _weaponHandler.PlayerCamera = _localCamera;
+    }
 
     public float RangeToSpawn
     {

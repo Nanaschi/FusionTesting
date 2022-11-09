@@ -311,6 +311,7 @@ MonoBehaviour:
   _localCamera: {fileID: 2671333762960172642}
   _headReplacement: {fileID: 5709458996191142277}
   _deathYZone: -5
+  _weaponHandler: {fileID: 8094549198080732083}
 --- !u!1 &8291279555844599688
 GameObject:
   m_ObjectHideFlags: 0
@@ -949,6 +950,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: GunAlt
       objectReference: {fileID: 0}
+    - target: {fileID: 1004596764225278875, guid: 9729d01c0d16ba847ae0540472bc3834,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5234288687922490206, guid: 9729d01c0d16ba847ae0540472bc3834,
         type: 3}
       propertyPath: Flags
@@ -1031,6 +1037,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: -1552182283, guid: e725a070cec140c4caffb81624c8c787, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &8094549198080732083 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7374322063395992697, guid: 9729d01c0d16ba847ae0540472bc3834,
+    type: 3}
+  m_PrefabInstance: {fileID: 1586189848607023050}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 740171f6091d4be98b4a65b7054ac333, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!4 &8325651177716573983 stripped

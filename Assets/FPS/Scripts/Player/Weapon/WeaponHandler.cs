@@ -15,12 +15,15 @@ namespace Movement.Weapon
 
 
         [SerializeField] private float _rayLength;
-
-        public float RayLength
+        private float RayLength
         {
             get => _rayLength;
             set => _rayLength = value;
         }
+
+        public Camera PlayerCamera { get; set; }
+
+
 
         [SerializeField] private LayerMask _layerMask;
 
@@ -48,17 +51,20 @@ namespace Movement.Weapon
             {
                 changed.Behaviour.FireParticleSystem.Play();
                 changed.Behaviour.Runner.LagCompensation.Raycast
-                    (changed.Behaviour.transform.position,
-                        Vector3.forward,
+                    (changed.Behaviour.PlayerCamera.transform.position,
+                        changed.Behaviour.PlayerCamera.transform.TransformDirection(Vector3.forward) ,
                         changed.Behaviour.RayLength,
                         changed.Behaviour.Object.InputAuthority, 
                         out var hitInfo, 
                         changed.Behaviour.LayerMask, HitOptions.IncludePhysX);
                 Debug.Log(changed.Behaviour.IsFiring);
-                if (hitInfo.Collider != null) print(hitInfo.GameObject.name);
-                Debug.DrawRay(changed.Behaviour.transform.position,
-                    changed.Behaviour.transform.TransformDirection(Vector3.forward) 
-                    * changed.Behaviour.RayLength, Color.red, 6);
+                //Unity built in colliders
+                if (hitInfo.Collider) print(hitInfo.GameObject.name);
+                //Fusion component for raycast detection 
+                if (hitInfo.Hitbox) print(hitInfo.GameObject.name);
+                Debug.DrawRay(changed.Behaviour.PlayerCamera.transform.position,
+                    changed.Behaviour.PlayerCamera.transform.TransformDirection(Vector3.forward) 
+                    * changed.Behaviour.RayLength, Color.red, .5f);
             }
             
         }
